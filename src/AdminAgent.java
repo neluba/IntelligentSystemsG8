@@ -13,16 +13,11 @@ public class AdminAgent extends Agent  {
 	private ArrayList<AID> members;
 		
 	
-	public AdminAgent() {
+	protected void setup() {
 		members = new ArrayList<AID>();
 		requestServer = new RequestServer();
-		setup();
-	}
-	
-	protected void setup() {
-		System.out.println(getAID().getName());
 		requestServer.action();
-		System.out.println("Admin starting");
+		System.out.println("Admin starting" + getAID().getName());
 	}
 				
 	private class RequestServer extends CyclicBehaviour {

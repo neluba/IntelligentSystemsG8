@@ -5,11 +5,10 @@ import jade.core.AID;
 
 public class ContractNet extends Boot {
 	
-	
+	/*
 	public static void main(String args[]) {
 		
-		/*
-		
+				
 		AdminAgent admin = new AdminAgent();
 		AID adminAID = admin.getAID();
 		admin.setLocalName("Admin");
@@ -34,6 +33,7 @@ public class ContractNet extends Boot {
 		*/
 			
 		
-	}
+	
+
 
 }

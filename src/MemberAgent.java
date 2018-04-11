@@ -8,13 +8,9 @@ public class MemberAgent extends Agent {
 	private AID adminAgent;
 	private RegistrationRequest registrationRequest;
 	
-	
-	public MemberAgent() {
-		registrationRequest = new RegistrationRequest();
-		setup();
-	}
-	
+		
 	protected void setup() {
+		registrationRequest = new RegistrationRequest();
 		System.out.println(getAID().getName());
 	}
 	
