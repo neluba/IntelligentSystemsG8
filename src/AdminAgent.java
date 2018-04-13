@@ -8,44 +8,50 @@ import jade.lang.acl.ACLMessage;
 
 public class AdminAgent extends Agent  {
 
-	private RequestServer requestServer;
-	private AID auctionator;
+	private static final long serialVersionUID = 1L;
 	private ArrayList<AID> members;
 		
 	
 	protected void setup() {
 		members = new ArrayList<AID>();
-		requestServer = new RequestServer();
-		requestServer.action();
-		System.out.println("Admin starting" + getAID().getName());
-	}
+		
+		addBehaviour(new CyclicBehaviour(this) {
+			
+			private static final long serialVersionUID = 1L;
+			@Override
+			public synchronized void action() {
+				ACLMessage msg = receive();
+				if (msg != null) {
+					String msgContent = msg.getContent();
+					AID msgSender = msg.getSender();
+					ACLMessage msgResponse = new ACLMessage(ACLMessage.INFORM);
 				
-	private class RequestServer extends CyclicBehaviour {
-		public void action() {
-			ACLMessage msg = receive();
-			if (msg != null) {
-				String msgContent = msg.getContent();
-				AID msgSender = msg.getSender();
-				ACLMessage msgReply = msg.createReply();
-				
-				if (msgContent.contains("rigistration")) {
-					if (auctionator == null) {
-						auctionator = msgSender;
-						msgReply.setContent("auctionator was set");
-					
-					} else {
-						members.add(msgSender);
-						msgReply.setContent("member was set");
+					if (msgContent.contains("start auction")) {
+						msgResponse.setContent("startAuction");
+						for (AID member : members) {
+							msgResponse.addReceiver(member);
+						}
 					}
+					
+					if (msgContent.contains("rigistration")) {
+						msgResponse.addReceiver(msgSender);
+						if (members.isEmpty()) {
+							msgResponse.setContent("setAuctionator");
+							System.out.println(msgSender.getName() + " is auctionator");
+						} else {
+							msgResponse.setContent("setMember");
+							System.out.println(msgSender.getName() + " is member");
+						}
+						members.add(msgSender);
+					}
+					send(msgResponse);
+				} else {
+					block();
 				}
-				send(msgReply);
-			} else {
-				block();
 			}
-		}
+		});
 	}
-		
-		
-		
+	
+	
 		
 }
