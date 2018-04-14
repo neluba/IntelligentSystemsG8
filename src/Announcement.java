@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class Announcement {
 
-	private int orderID;
+	private static int orderID = 0;
 	private int startTime;
 	private int endTime;
 		
@@ -15,7 +15,7 @@ public class Announcement {
 	}
 	
 	public String getAsString() {
-		String announcement = "orderID: " + orderID + "\n" + startTime + "\n" + endTime;
+		String announcement = "order" + "\n" + "ID: " + orderID + "\n" + startTime + "\n" + endTime;
 		return announcement;
 	}
 	

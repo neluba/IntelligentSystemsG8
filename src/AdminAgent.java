@@ -8,7 +8,6 @@ import jade.lang.acl.ACLMessage;
 
 public class AdminAgent extends Agent  {
 
-	private static final long serialVersionUID = 1L;
 	private ArrayList<AID> members;
 		
 	
@@ -17,16 +16,15 @@ public class AdminAgent extends Agent  {
 		
 		addBehaviour(new CyclicBehaviour(this) {
 			
-			private static final long serialVersionUID = 1L;
 			@Override
-			public synchronized void action() {
+			public void action() {
 				ACLMessage msg = receive();
 				if (msg != null) {
 					String msgContent = msg.getContent();
 					AID msgSender = msg.getSender();
 					ACLMessage msgResponse = new ACLMessage(ACLMessage.INFORM);
 				
-					if (msgContent.contains("start auction")) {
+					if (msgContent.contains("start")) {
 						msgResponse.setContent("startAuction");
 						for (AID member : members) {
 							msgResponse.addReceiver(member);

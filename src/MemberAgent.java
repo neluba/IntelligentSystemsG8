@@ -12,7 +12,6 @@ import jade.lang.acl.ACLMessage;
 
 public class MemberAgent extends Agent {
 		
-	private static final long serialVersionUID = 1L;
 	private AID adminAgent;
 	private boolean isAuctionator;
 	private ArrayList<AID> members;
@@ -32,84 +31,97 @@ public class MemberAgent extends Agent {
 		
 		addBehaviour(new CyclicBehaviour(this) {
 			
-			private static final long serialVersionUID = 1L;
 			@Override
-			public synchronized void action() {
+			public void action() {
+				doWait(5000);
 				ACLMessage msg = receive();
 				if (msg != null) {
 					String msgContent = msg.getContent();
-					ACLMessage msgResponse = new ACLMessage(ACLMessage.INFORM);	
-										
-					if (msgContent.contains("setAuctionator")) {
-						isAuctionator = true;
-						System.out.println("Auctionator is setting");
-					}
+					ACLMessage msgResponse = new ACLMessage(ACLMessage.INFORM);
 					
-					if (msgContent.contains("startAuction")) {
+					String[] msgContentAsString = msgContent.split("\n");
+					String msgHead = msgContentAsString[0];
+					switch (msgHead) {
+						
+					case "setAuctionator":					
+						isAuctionator = true;
+						break;
+					
+					case "startAuction":
 						Iterator receiverIterator = msg.getAllReceiver();
 						while (receiverIterator.hasNext()) {
 							AID member = (AID) receiverIterator.next();
 							members.add(member);
 						}
-						
 						if (isAuctionator == true) {
 							String announcement = new Announcement().getAsString();
-							System.out.println(announcement);
 							msgResponse.setContent(announcement);
-							for (AID member : members) {
-								msgResponse.addReceiver(member);
-							}
+							String auctionatorName = this.getAgent().getName();
+							System.out.println(announcement);
+							System.out.println(auctionatorName);
+							System.out.println();
+								for (AID member : members) {
+									if (!member.getName().contains(auctionatorName))
+											msgResponse.addReceiver(member);
+								}
 						}
-						send(msgResponse);
-					}
-					
-					if (msgContent.contains("orderID")) {
+						break;
+										
+					case "order":
 						AID auctionator = msg.getSender();
-						String[] msgContentAsRows = msgContent.split("\n");
-						String id = msgContentAsRows[0];
-						String startTimeAsString = msgContentAsRows[1];
-						String endTimeAsString = msgContentAsRows[2];
+						String[] orderAsRows = msgContent.split("\n");
+						String id = orderAsRows[1];
+						String startTimeAsString = orderAsRows[2];
+						String endTimeAsString = orderAsRows[3];
 						
 						int startTime = Integer.parseInt(startTimeAsString);
 						int endTime = Integer.parseInt(endTimeAsString);
 						
 						Random randomTimer = new Random();
-						int offerDuration = randomTimer.nextInt(endTime - startTime + 1);
-						int offerTime = startTime + offerDuration;
-						String offer = "offerID: "+ id + "\n" + offerTime;
+						int offerDuration = randomTimer.nextInt(endTime - startTime);
+						int offerTime = startTime + 1 + offerDuration;
+						String offer = "offer"+ "\n" + id + "\n" + offerTime;
 												
 						msgResponse.setContent(offer);
 						msgResponse.addReceiver(auctionator);
-						send(msgResponse);
-					}
+						break;
 					
-					if (msgContent.contains("offerID")) {
+					case "offer":
 						offerCount++;
-						AID offer = msg.getSender();
-						System.out.println(offer);
+						AID offerSender = msg.getSender();
 						System.out.println(msgContent);
-						String[] msgContentAsRows = msgContent.split("\n");
-						offers.put(offer, msgContentAsRows);
+						System.out.println(offerSender.getName());
+						System.out.println();
+												
+						String[] offerAsRows = msgContent.split("\n");
+						offers.put(offerSender, offerAsRows);
 						if (offerCount == 2) {
 							for (Map.Entry<AID, String[]> e : offers.entrySet()) {
-								msgContentAsRows = e.getValue();
-								int offerTime = Integer.parseInt(msgContentAsRows[1]);
-								if (bestOfferTime == 0 || bestOfferTime > offerTime) {  
-									bestOfferTime = offerTime;
+								offerAsRows = e.getValue();
+								int timeToOffer = Integer.parseInt(offerAsRows[2]);
+								if (bestOfferTime == 0 || bestOfferTime > timeToOffer) {  
+									bestOfferTime = timeToOffer;
 									bestOffer = e.getKey();
 								}
 							}
-							msgResponse.setContent("setAuctionator");
-							msgResponse.addReceiver(bestOffer);
-							System.out.println("Best Offer: " + bestOffer.getName() + "Offer Time: " + bestOfferTime);
-							send(msgResponse);
+							System.out.println("best offer " + offerAsRows[1] + " " + bestOffer.getName() + " time: " + bestOfferTime);
+							System.out.println("");
+							ACLMessage msgNewAuctionator = new ACLMessage(ACLMessage.INFORM);
+							msgNewAuctionator.setContent("setAuctionator");
+							msgNewAuctionator.addReceiver(bestOffer);
+							send(msgNewAuctionator);
+							
 							bestOffer = null;
 							bestOfferTime = 0;
 							offerCount = 0;
 							offers.clear();
 							isAuctionator = false;
+							msgResponse.setContent("start");
+							msgResponse.addReceiver(adminAgent);
+							break;
 						}
 					}
+					send(msgResponse);
 				} else {
 					block();
 				}
@@ -119,7 +131,6 @@ public class MemberAgent extends Agent {
 	
 	private class RegistrationRequest extends OneShotBehaviour {
 		
-		private static final long serialVersionUID = 1L;
 		@Override
 		public void action() {
 			ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
