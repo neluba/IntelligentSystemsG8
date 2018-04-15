@@ -5,17 +5,28 @@ import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 
-
+/**
+ * The agent to start and admin the auction.
+ * 
+ * @author IS Group 08
+ *
+ */
 public class AdminAgent extends Agent  {
 
 	private ArrayList<AID> members;
 		
 	
+	@Override
 	protected void setup() {
 		members = new ArrayList<AID>();
 		
-		addBehaviour(new CyclicBehaviour(this) {
+		addBehaviour(new CyclicBehaviour(this) {	
 			
+			/**
+			 * Receive the start-message from user to start the system.
+			 * Receive and response the registration-messages from auction-members to registration in an auction.
+			 * 
+			 */
 			@Override
 			public void action() {
 				ACLMessage msg = receive();
@@ -49,7 +60,6 @@ public class AdminAgent extends Agent  {
 			}
 		});
 	}
-	
 	
 		
 }

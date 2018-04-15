@@ -10,60 +10,71 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 
+/**
+ * the member-agent in contract net
+ * 
+ * @author IS Group 08
+ *
+ */
 public class MemberAgent extends Agent {
 		
+	private Random randomTimer;
 	private AID adminAgent;
 	private boolean isAuctionator;
-	private ArrayList<AID> members;
 	private HashMap<AID, String[]> offers;
 	private int offerCount;
 	private int bestOfferTime;
 	private AID bestOffer;
 				
-		
+	@Override
 	protected void setup() {
+		randomTimer = new Random();
 		adminAgent = new AID("admin", AID.ISLOCALNAME);
-		members = new ArrayList<AID>();
 		offers = new HashMap<AID, String[]>();
 		
 		RegistrationRequest registrationRequest = new RegistrationRequest();
 		registrationRequest.action();
 		
-		addBehaviour(new CyclicBehaviour(this) {
+		addBehaviour(new CyclicBehaviour(this) {			
 			
+			/**
+			 * Receive the start-message from admin to start the auction.
+			 * Receive and response the messages in auction and 
+			 * differentiates between auctionator and auction-member.
+			 * Plot the conversations between agents in console. 	
+			 *  
+			 */
 			@Override
 			public void action() {
-				doWait(5000);
 				ACLMessage msg = receive();
 				if (msg != null) {
 					String msgContent = msg.getContent();
 					ACLMessage msgResponse = new ACLMessage(ACLMessage.INFORM);
-					
 					String[] msgContentAsString = msgContent.split("\n");
 					String msgHead = msgContentAsString[0];
-					switch (msgHead) {
-						
+					switch (msgHead) {		
+					
 					case "setAuctionator":					
 						isAuctionator = true;
 						break;
 					
 					case "startAuction":
-						Iterator receiverIterator = msg.getAllReceiver();
-						while (receiverIterator.hasNext()) {
-							AID member = (AID) receiverIterator.next();
-							members.add(member);
-						}
 						if (isAuctionator == true) {
+							Iterator receiverIterator = msg.getAllReceiver();
+							while (receiverIterator.hasNext()) {
+								AID auctionMember = (AID) receiverIterator.next();
+								String auctionMemberName = auctionMember.getName();
+								String auctionatorName = this.getAgent().getName();
+								if (!auctionMemberName.contains(auctionatorName)) 
+									msgResponse.addReceiver(auctionMember);
+							}	
 							String announcement = new Announcement().getAsString();
+							
 							msgResponse.setContent(announcement);
-							String auctionatorName = this.getAgent().getName();
-							System.out.println(announcement);
-							System.out.println(auctionatorName);
+							send(msgResponse);
+							System.out.println(msgResponse.getContent());
+							System.out.println((msgResponse.getSender().getName()));
 							System.out.println();
-								for (AID member : members) {
-									if (!member.getName().contains(auctionatorName))
-											msgResponse.addReceiver(member);
-								}
 						}
 						break;
 										
@@ -77,22 +88,21 @@ public class MemberAgent extends Agent {
 						int startTime = Integer.parseInt(startTimeAsString);
 						int endTime = Integer.parseInt(endTimeAsString);
 						
-						Random randomTimer = new Random();
 						int offerDuration = randomTimer.nextInt(endTime - startTime);
 						int offerTime = startTime + 1 + offerDuration;
 						String offer = "offer"+ "\n" + id + "\n" + offerTime;
 												
 						msgResponse.setContent(offer);
 						msgResponse.addReceiver(auctionator);
+						send(msgResponse);
+						System.out.println(msgResponse.getContent());
+						System.out.println((msgResponse.getSender().getName()));
+						System.out.println();
 						break;
 					
 					case "offer":
 						offerCount++;
 						AID offerSender = msg.getSender();
-						System.out.println(msgContent);
-						System.out.println(offerSender.getName());
-						System.out.println();
-												
 						String[] offerAsRows = msgContent.split("\n");
 						offers.put(offerSender, offerAsRows);
 						if (offerCount == 2) {
@@ -105,12 +115,12 @@ public class MemberAgent extends Agent {
 								}
 							}
 							System.out.println("best offer " + offerAsRows[1] + " " + bestOffer.getName() + " time: " + bestOfferTime);
-							System.out.println("");
+							System.out.println("----------------------------------------------------");
 							ACLMessage msgNewAuctionator = new ACLMessage(ACLMessage.INFORM);
 							msgNewAuctionator.setContent("setAuctionator");
 							msgNewAuctionator.addReceiver(bestOffer);
 							send(msgNewAuctionator);
-							
+														
 							bestOffer = null;
 							bestOfferTime = 0;
 							offerCount = 0;
@@ -118,10 +128,11 @@ public class MemberAgent extends Agent {
 							isAuctionator = false;
 							msgResponse.setContent("start");
 							msgResponse.addReceiver(adminAgent);
+							send(msgResponse);
 							break;
 						}
 					}
-					send(msgResponse);
+					doWait(5000);
 				} else {
 					block();
 				}
@@ -129,8 +140,11 @@ public class MemberAgent extends Agent {
 		});
 	}
 	
-	private class RegistrationRequest extends OneShotBehaviour {
-		
+	/**
+	 * the request for registration in auction for admin
+	 * 
+	 */
+	private class RegistrationRequest extends OneShotBehaviour {		
 		@Override
 		public void action() {
 			ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
@@ -140,5 +154,6 @@ public class MemberAgent extends Agent {
 		}
 	}
 	
-
+	
 }
+
