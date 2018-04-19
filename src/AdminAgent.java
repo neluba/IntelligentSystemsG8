@@ -6,7 +6,7 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 
 /**
- * The agent to start and admin the auction.
+ * The agent to start and admin the auction in contract net.
  * 
  * @author IS Group 08
  *

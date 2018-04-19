@@ -3,7 +3,7 @@ import java.util.Random;
 /**
  * The Announcement for an order bye the auctionator in an auction.
  * 
- * @author IS Group 8
+ * @author IS Group 08
  *
  */
 public class Announcement {
