@@ -135,10 +135,35 @@ public class PlayerAgent extends Agent {
 										for (String card : playerHand) {
 											String value = card.substring(1);
 											if (value.contains("B")) {
+													
+												int hearts = 0, diamonds = 0, clubs = 0, spades = 0;
+												for (String cards : playerHand) {
+													String color = cards.substring(0, 1);
+													if(color.contains("H")) {
+														hearts++;
+													} else if (color.contains("C")) {
+														diamonds++;
+													} else if (color.contains("K")) {
+														clubs++;
+													} else if (color.contains("P")) {
+														spades++;
+													}														
+												}
+												// wish the color with most cards of wishes color													
+												String wish = "";
+												if(hearts >= diamonds && hearts >= clubs && hearts >= spades)
+													wish = "H ";
+												else if (diamonds >= hearts && diamonds >= clubs && diamonds >= spades)
+													wish = "C ";
+												else if (clubs >= hearts && clubs >= diamonds && clubs >= spades)
+													wish = "K ";
+												else if (spades >= hearts && spades >= diamonds && spades >= clubs) 
+													wish = "P ";
+												
 												pass = false;
 												inform = card;
 												playerHand.remove(playerHandIndex);
-												inform += "\n" + "K "; 
+												inform += "\n" + wish; 
 												inform += "\n" + (playerHand.size() - 1);
 												break;
 											}

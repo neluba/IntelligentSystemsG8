@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Random;
+
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
@@ -86,9 +88,19 @@ public class DummyAgent extends Agent {
 										inform = card;
 										playerHand.remove(playerHandIndex);
 										
-										// a Bube will be play with the color Kreuz 
+										// a Bube will be play a random color 
 										if (value.contains("B")) {
-											inform += "\n" + "K ";
+											Random random = new Random();
+											int randomColor = random.nextInt(4);
+											if (randomColor == 0)
+												inform += "\n" + "K ";
+											if (randomColor == 1)
+												inform += "\n" + "P ";
+											if (randomColor == 2)
+												inform += "\n" + "H ";
+											if (randomColor == 3)
+												inform += "\n" + "C ";
+												
 										} else {
 											inform += "\n" + "no wish";
 										}
