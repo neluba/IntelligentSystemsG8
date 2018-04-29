@@ -1,0 +1,11 @@
+------------------------------------
+Intelligente Interaktion II - MAU MAU
+------------------------------------
+
+Start the main-method in Maumau and the MAU MAU Game will be run with one player and two dummies.
+
+The player will be play the first playable card in deck. If a dummy played a seven or eight, 
+the player want to try to play another seven or eight. If he can not play card, he 
+want to try to play a Bube and he will be wish the color Kreuz. 
+
+The dummies will be play the first playable card in deck. If they play a Bube, they will be wish the color Kreuz.
