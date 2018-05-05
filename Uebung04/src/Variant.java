@@ -1,8 +1,8 @@
 
 public class Variant {
 
-	String[] operations;
-	int[] times;
+	String[] ressources;
+	int[] operationTimes;
 	
 	
 	public Variant() {
@@ -10,14 +10,13 @@ public class Variant {
 	}
 	
 	/**
-	 * 
-	 * @param operations an array String[i]
-	 * 			index i for the sequence of operations, index i=0 for operation 1, index i=1 for operation 2 and so on 
-	 * 			i for the ressource where the operation will be done
+	 * index i stands for the operation
+	 * @param ressources
 	 */
-	public void setOperations(String[] operations) {
-		this.operations = operations;
+	public void setRessources(String[] ressources) {
+		this.ressources = ressources;
 	}
+	
 	
 	/**
 	 * 
@@ -26,7 +25,7 @@ public class Variant {
 	 * 					index i=1 for the ressource for operation 2 and so on 
 	 * 			i for the time that the ressource need for an operation
 	 */
-	public void setTimes(int[] times) {
-		this.times = times;
+	public void setOperationTimes(int[] operationTimes) {
+		this.operationTimes = operationTimes;
 	}
 }

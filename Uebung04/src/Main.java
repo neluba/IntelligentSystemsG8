@@ -1,110 +1,127 @@
+import java.util.ArrayList;
 
 public class Main {
 
 	
 	public static void main (String[] args) {
 		
-		Plan plan1 = new Plan();
-		Plan plan2 = new Plan();
-		Plan plan3 = new Plan();
-		Plan plan4 = new Plan();
-		Plan plan5 = new Plan();
-		Plan plan6 = new Plan();
-		Plan plan7 = new Plan();
-		Plan plan8 = new Plan();
-		Plan plan9 = new Plan();
-		Plan plan10 = new Plan();
 		
-		Product p11 = new Product();
-		Product p12 = new Product();
-		Product p13 = new Product();
-		Product p21 = new Product();
-		Product p22 = new Product();
-		Product p23 = new Product();
-		Product p31 = new Product();
-		Product p32 = new Product();
-		Product p33 = new Product();
+		Plan plan = new Plan();
 		
-		String[] o1 = 	{"M1","M2","M3"};
-		String[] o2 = 	{"M1","M3","M2"};
-		String[] o3=  	{"M2","M1","M3"};
-		String[] o4 = 	{"M1","M3","M4"};
-		String[] o5 =	{"M2","M4","M3"};
-		String[] o6 =	{"M4","M2","M3"};
-						
-		int[] t1 =	{1,2,3};
-		int[] t2 =	{2,2,3};
-		int[] t3 =	{3,3,2};
-		int[] t4 =	{5,2,3};
-		int[] t5 =	{1,5,5};
-		int[] t6 = 	{3,2,1};
+		// product 1 
+		Product product1 = new Product();
+		plan.addProduct(product1);
+		 
+		Variant product1Variant = new Variant();
+		product1.addVariant(product1Variant);
+		product1Variant.setRessources(new String[]{"M1", "M2", "M3"});
+		product1Variant.setOperationTimes(new int[]{2,2,3});
+		
+		// product 2
+		Product product2 = new Product();
+		plan.addProduct(product2);
+		 
+		Variant product2Variant = new Variant();
+		product2.addVariant(product2Variant);
+		product2Variant.setRessources(new String[]{"M1", "M4", "M2"});
+		product2Variant.setOperationTimes(new int[]{3,2,3});
+		
+		// product 3
+		Product product3 = new Product();
+		plan.addProduct(product3);
+		 
+		Variant product3Variant = new Variant();
+		product3.addVariant(product3Variant);
+		product3Variant.setRessources(new String[]{"M2", "M4", "M3"});
+		product3Variant.setOperationTimes(new int[]{1,2,1});
+		
+		
+		// product 4
+		Product product4 = new Product();
+		plan.addProduct(product4);
+		 
+		Variant product4Variant = new Variant();
+		product4.addVariant(product4Variant);
+		product4Variant.setRessources(new String[]{"M4", "M2", "M1"});
+		product4Variant.setOperationTimes(new int[]{4,1,3});
+		
+		
+		// product 5
+		Product product5 = new Product();
+		plan.addProduct(product5);
+		 
+		Variant product5Variant = new Variant();
+		product5.addVariant(product5Variant);
+		product5Variant.setRessources(new String[]{"M4", "M5", "M1"});
+		product5Variant.setOperationTimes(new int[]{5,1,3});
+		
+		// product 6
+		Product product6 = new Product();
+		plan.addProduct(product6);
+		 
+		Variant product6Variant = new Variant();
+		product6.addVariant(product6Variant);
+		product6Variant.setRessources(new String[]{"M2", "M6", "M3"});
+		product6Variant.setOperationTimes(new int[]{2,5,1});
+		
+		
+		// product 7
+		Product product7 = new Product();
+		plan.addProduct(product7);
+		 
+		Variant product7Variant = new Variant();
+		product7.addVariant(product7Variant);
+		product7Variant.setRessources(new String[]{"M1", "M6", "M2"});
+		product7Variant.setOperationTimes(new int[]{3,7,5});
+		
+		
+		// product 8
+		Product product8 = new Product();
+		plan.addProduct(product8);
+		 
+		Variant product8Variant = new Variant();
+		product8.addVariant(product8Variant);
+		product8Variant.setRessources(new String[]{"M3", "M2", "M5"});
+		product8Variant.setOperationTimes(new int[]{5,1,3});
+		
+		
+		// product 9
+		Product product9 = new Product();
+		plan.addProduct(product9);
+		 
+		Variant product9Variant = new Variant();
+		product9.addVariant(product9Variant);
+		product9Variant.setRessources(new String[]{"M4", "M1", "M5"});
+		product9Variant.setOperationTimes(new int[]{2,5,3});
+		
+		
+		// product 10
+		Product product10 = new Product();
+		plan.addProduct(product10);
+		 
+		Variant product10Variant = new Variant();
+		product10.addVariant(product10Variant);
+		product10Variant.setRessources(new String[]{"M2", "M1", "M6"});
+		product10Variant.setOperationTimes(new int[]{3,6,5});
+				
+		
+		ArrayList<Product> productList = plan.getProducts();
+		
+		for(int i = 0; i < plan.getProducts().size(); i++) {
+			Product currentProduct = productList.get(i);
+			for(int j = 0; j < currentProduct.getVariants().size(); j++) {
+				Variant currentVariant = currentProduct.getVariant(j);
 
-		Variant vP11 = new Variant();
-		vP11.setOperations(o1);
-		vP11.setTimes(t1);
-		Variant vP12 = new Variant();
-		vP12.setOperations(o4);
-		vP12.setTimes(t2);
-		
-		Variant vP21 = new Variant();
-		vP21.setOperations(o2);
-		vP21.setTimes(t3);
-		Variant vP22 = new Variant();
-		vP22.setOperations(o5);
-		vP22.setTimes(t4);
-		
-		Variant vP31 = new Variant();
-		vP31.setOperations(o3);
-		vP31.setTimes(t5);
-		Variant vP32 = new Variant();
-		vP32.setOperations(o6);
-		vP12.setTimes(t6);
-		
-		p11.getVariants().add(vP11);
-		p12.getVariants().add(vP12);
-		p13.getVariants().add(vP11);
-		p13.getVariants().add(vP12);
-		
-		p21.getVariants().add(vP21);
-		p22.getVariants().add(vP22);
-		p23.getVariants().add(vP21);
-		p23.getVariants().add(vP22);
-		
-		p31.getVariants().add(vP31);
-		p32.getVariants().add(vP32);
-		p33.getVariants().add(vP31);
-		p33.getVariants().add(vP32);
-		
-		
-		plan1.getProducts().add(p11);
-		
-		plan2.getProducts().add(p12);
-		
-		plan3.getProducts().add(p13);
-		
-		plan4.getProducts().add(p11);
-		plan4.getProducts().add(p21);
-		
-		plan5.getProducts().add(p12);
-		plan5.getProducts().add(p22);
-		
-		plan6.getProducts().add(p11);
-		plan6.getProducts().add(p31);
-		
-		plan7.getProducts().add(p31);
-		plan7.getProducts().add(p11);
-		
-		plan8.getProducts().add(p11);
-		plan8.getProducts().add(p21);
-		plan8.getProducts().add(p31);
-		
-		plan9.getProducts().add(p13);
-		plan9.getProducts().add(p22);
-		plan9.getProducts().add(p32);
-		
-		plan10.getProducts().add(p13);
-		plan10.getProducts().add(p23);
-		plan10.getProducts().add(p33);
+				for(int k = 0; k < currentVariant.ressources.length; k++) {
+					System.out.println("Produkt: " + (i+1) 
+							+ " | Variante: " + (j+1) 
+							+ " | Operation: " + (k+1) 
+							+ " | Ressource: " + currentVariant.ressources[k] 
+							+ " | Dauer: " + currentVariant.operationTimes[k]);
+				}
+				
+			}
+		}
 				
 
 	}

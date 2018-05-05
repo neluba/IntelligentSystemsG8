@@ -17,4 +17,12 @@ public class Plan {
 		this.products = products;
 	}
 	
+	public void addProduct(Product product) {
+		this.products.add(product);
+	}
+	
+	public Product getProduct(int index) {
+		return this.products.get(index);
+	}
+	
 }

@@ -17,5 +17,12 @@ public class Product {
 		this.variants = variants;
 	}
 	
+	public void addVariant(Variant variant) {
+		this.variants.add(variant);
+	}
+	
+	public Variant getVariant(int index) {
+		return this.variants.get(index);
+	}
 	
 }
