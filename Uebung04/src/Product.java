@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 
+/**
+ * @author IS Group 08
+ *
+ */
 public class Product {
 
 	private ArrayList<Variant> variants;

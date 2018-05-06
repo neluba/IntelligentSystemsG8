@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 
+/**
+ * @author IS Group 08
+ *
+ */
 public class Plan {
 
 	private ArrayList<Product> products;

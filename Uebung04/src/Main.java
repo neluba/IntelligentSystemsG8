@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 
+/**
+ * @author IS Group 08
+ *
+ */
 public class Main {
 
 	
@@ -24,12 +28,12 @@ public class Main {
 		
 		Variant product1Variant3 = new Variant();
 		product1.addVariant(product1Variant3);
-		product1Variant3.setRessources(new String[]{"M4", "M5", "M1"});
+		product1Variant3.setRessources(new String[]{"M4", "M1", "M1"});
 		product1Variant3.setOperationTimes(new int[]{5,1,3});
 		
 		Variant product1Variant4 = new Variant();
 		product1.addVariant(product1Variant4);
-		product1Variant4.setRessources(new String[]{"M2", "M6", "M3"});
+		product1Variant4.setRessources(new String[]{"M2", "M1", "M3"});
 		product1Variant4.setOperationTimes(new int[]{2,5,1});
 		
 		// product 2
@@ -43,12 +47,12 @@ public class Main {
 		
 		Variant product2Variant2 = new Variant();
 		product2.addVariant(product2Variant2);
-		product2Variant2.setRessources(new String[]{"M1", "M6", "M2"});
+		product2Variant2.setRessources(new String[]{"M1", "M1", "M2"});
 		product2Variant2.setOperationTimes(new int[]{3,7,5});
 		
 		Variant product2Variant3 = new Variant();
 		product2.addVariant(product2Variant3);
-		product2Variant3.setRessources(new String[]{"M3", "M2", "M5"});
+		product2Variant3.setRessources(new String[]{"M3", "M2", "M4"});
 		product2Variant3.setOperationTimes(new int[]{5,1,3});
 		
 		// product 3
@@ -62,12 +66,12 @@ public class Main {
 		
 		Variant product3Variant2 = new Variant();
 		product3.addVariant(product3Variant2);
-		product3Variant2.setRessources(new String[]{"M4", "M1", "M5"});
+		product3Variant2.setRessources(new String[]{"M4", "M1", "M2"});
 		product3Variant2.setOperationTimes(new int[]{2,5,3});
 		
 		Variant product3Variant3 = new Variant();
 		product3.addVariant(product3Variant3);
-		product3Variant3.setRessources(new String[]{"M2", "M1", "M6"});
+		product3Variant3.setRessources(new String[]{"M2", "M1", "M4"});
 		product3Variant3.setOperationTimes(new int[]{3,6,5});
 		
 		

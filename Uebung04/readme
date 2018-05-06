@@ -1,0 +1,16 @@
+Datenstruktur für Planungsprobleme
+----------------------------------
+Plan:
+Ein Plan hat eine Liste von Produkten/ Aufträgen.
+
+Produkt:
+Ein Produkt/ Auftrag hat eine Liste von Varianten.
+
+Variante:
+Eine Variante hat ein String Array Ressourcen. In diesem sind die für die Operationen benötigten Ressourcen.
+Der Index des Arrays entspricht der Reihenfolge der Operationen. Die Operationen sind also über den Index der
+entsprechenden Ressource zugeordnet.
+
+Eine Variante hat ein int Array mit Operationen Zeiten. In diesem sind die für die Operationen benötigten
+Ressourcenbelegungszeiten. Der Index des Arrays entspricht der Reihenfolge der Operationen. Zusammen
+mit dem Array Ressourcen kann die Belegungszeit einer Ressource, einer Operation zugordnet werden.
