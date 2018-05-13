@@ -6,6 +6,8 @@ import planning.Plan;
 import planning.Ressource;
 
 /**
+ * The function that check a plan for keeping a fixed endtime.
+ * 
  * @author IS Group 08
  *
  */

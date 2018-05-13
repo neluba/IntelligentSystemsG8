@@ -1,0 +1,18 @@
+H1:
+Mit der Methode: planningProduct(int productIndex, int variant) der Klasse Plan, können alle Aufträge/ Produkte
+eines Plans eingeplant werden.
+
+H2:
+Mit der Methode: addIntervall(int time, Product product) der Klasse Ressource, kann eine Maschine
+mit einer Operation eines Produktes belegt werden. Die Methode lässt keine Mehrfachbelegungen zu
+einem Zeitpunkt zu.
+
+H3:
+Beim Einplanen mit: planningProduct(int productIndex, int variant) erfolgt das Einplanen nach 
+der festen Reihenfolge der Operationen in der Produktvariante.
+Die Methode: addIntervall(int time, Product product) prüft den Frühestmöglichen Startzeitpunkt
+für die nächste Operation des Produkts und aktualisiert diesen für Folgeoperationen des Produkts.
+
+S1:
+Mit der Zielfunktion: FixedEndTime und der Methode: checkPlan(Plan plan, ITarget target)
+kann ein Plan auf einen gewünschten Endtermin hin überprüft werden.

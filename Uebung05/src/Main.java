@@ -126,32 +126,32 @@ public class Main {
 		
 		System.out.println("m1");
 		for (int i = 0; i < m1.getProducts().size(); i++) {
-			System.out.print(m1.getProduct(i) + ": " + m1.getIntervall(i)[0] + "-" + m1.getIntervall(i)[1] + " | "); 
+			System.out.print(m1.getProduct(i).getName() + ": " + m1.getIntervall(i)[0] + "-" + m1.getIntervall(i)[1] + " | "); 
 		}
 		System.out.println("\n----------------------------------------");
 		
 		System.out.println("m2");
 		for (int i = 0; i < m2.getProducts().size(); i++) {
-			System.out.print(m2.getProduct(i) + ": " + m2.getIntervall(i)[0] + "-" + m2.getIntervall(i)[1] + " | "); 
+			System.out.print(m2.getProduct(i).getName() + ": " + m2.getIntervall(i)[0] + "-" + m2.getIntervall(i)[1] + " | "); 
 		}
 		System.out.println("\n ---------------------------------------");
 		
 		System.out.println("m3");
 		for (int i = 0; i < m3.getProducts().size(); i++) {
-			System.out.print(m3.getProduct(i) + ": " + m3.getIntervall(i)[0] + "-" + m3.getIntervall(i)[1] + " | "); 
+			System.out.print(m3.getProduct(i).getName() + ": " + m3.getIntervall(i)[0] + "-" + m3.getIntervall(i)[1] + " | "); 
 		}
 		System.out.println("\n----------------------------------------");
 		
 		System.out.println("m4");
 		for (int i = 0; i < m4.getProducts().size(); i++) {
-			System.out.print(m4.getProduct(i) + ": " + m4.getIntervall(i)[0] + "-" + m4.getIntervall(i)[1] + " | "); 
+			System.out.print(m4.getProduct(i).getName() + ": " + m4.getIntervall(i)[0] + "-" + m4.getIntervall(i)[1] + " | "); 
 		}
 		System.out.println("\n----------------------------------------");
 			
 		FixedEndTime fixedEndTime = new FixedEndTime();
-		TargetEndTime targetEndTime = new TargetEndTime(10);
+		TargetEndTime targetEndTime = new TargetEndTime(30);
 		boolean target = fixedEndTime.checkPlan(plan, targetEndTime);
-		System.out.println("All products are finished before time 10: " + target);
+		System.out.println("All products are finished before time 30: " + target);
 		
 	}
 	

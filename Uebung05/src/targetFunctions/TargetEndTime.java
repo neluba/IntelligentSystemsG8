@@ -1,6 +1,8 @@
 package targetFunctions;
 
 /**
+ * The target to check a plan for keeping a fixed endtime.
+ * 
  * @author IS Group 08
  *
  */

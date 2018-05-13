@@ -7,7 +7,9 @@ import java.util.ArrayList;
  */
 public class Plan {
 
+	// the list of products to plan in plan
 	private ArrayList<Product> products;
+	// the list of ressources which use in plan 
 	private ArrayList<Ressource> ressources;
 	
 	
@@ -45,9 +47,15 @@ public class Plan {
 		ressources.add(ressource);
 	}
 	
+	/**
+	 * Planning a product on the setted ressource. The ressource was setting in the variant of product.
+	 * All products in the list products can be plan.
+	 * 
+	 * @param productIndex 	the index of product in the list products to plan
+	 * @param variant the 	variant of product to plan
+	 */
 	public void planningProduct(int productIndex, int variant) {
 		Product product = products.get(productIndex);
-		String productName = product.getName();
 		Variant productVariant = product.getVariant(variant);
 		Ressource[] ressources = productVariant.getRessources();
 		int[] operationTimes = productVariant.getOperationTimes();
@@ -55,7 +63,7 @@ public class Plan {
 		int ressourcesIndex = 0;
 		for(Ressource ressource : ressources) {
 			int operationTime = operationTimes[ressourcesIndex];
-			ressource.addIntervall(operationTime, productName);
+			ressource.addIntervall(operationTime, product);
 			ressourcesIndex++;
 		}
 	}

@@ -14,33 +14,37 @@ public class Ressource {
 	
 	private String name;
 	private ArrayList<int[]> intervalls;
-	private ArrayList<String> products;
+	private ArrayList<Product> products;
 	
 	
 	public Ressource(String name) {
 		this.name = name;
 		intervalls = new ArrayList<int[]>();
-		products = new ArrayList<String>();
+		products = new ArrayList<Product>();
 	}
 	
 	/**
 	 * Add an time-intervall to the list of time-intervalls and
 	 * a product to the list of products for the time-intervall. 
 	 * 
-	 * @param time	the time for the time-intervall of an operation  
-	 * @param product the product for the time-intervall
+	 * @param time		the time for the time-intervall of an operation  
+	 * @param product 	the product for the time-intervall
 	 */
-	public void addIntervall(int time, String product) {
+	public void addIntervall(int time, Product product) {
+		int earliestProductStartTime = product.getEarliestStartTime();
 		int[] intervall = new int[2];
 		if (intervalls.isEmpty()) {
-			intervall[0] = 0;
-			intervall[1] = time;
+			intervall[0] = earliestProductStartTime;
+			intervall[1] = earliestProductStartTime + time;
 		} else {
 			int[] lastIntervall = intervalls.get(intervalls.size() - 1);
 			int lastIntervallTime = lastIntervall[1];
+			if (lastIntervallTime < earliestProductStartTime)
+				lastIntervallTime = earliestProductStartTime;
 			intervall[0] = lastIntervallTime;
 			intervall[1] = lastIntervallTime + time;
 		}
+		product.setEarliestStartTime(intervall[1]);
 		intervalls.add(intervall);
 		products.add(product);
 	}
@@ -69,19 +73,19 @@ public class Ressource {
 		intervalls.add(index, intervall);
 	}
 
-	public ArrayList<String> getProducts() {
+	public ArrayList<Product> getProducts() {
 		return products;
 	}
 
-	public void setProducts(ArrayList<String> products) {
+	public void setProducts(ArrayList<Product> products) {
 		this.products = products;
 	}
 	
-	public String getProduct(int index) {
+	public Product getProduct(int index) {
 		return products.get(index);
 	}
 	
-	public void setProduct(int index, String product) {
+	public void setProduct(int index, Product product) {
 		products.add(index, product);
 	}
 	

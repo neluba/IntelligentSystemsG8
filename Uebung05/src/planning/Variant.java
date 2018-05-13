@@ -7,7 +7,7 @@ public class Variant {
 
 	Ressource[] ressources;
 	int[] operationTimes;
-	
+		
 	
 	public Variant() {
 		
@@ -27,7 +27,7 @@ public class Variant {
 	 * @param operation times
 	 * 			index i for the ressources where the operations will be done, index i=0 for the ressource for operations 1,
 	 * 					index i=1 for the ressource for operation 2 and so on 
-	 * 			i for the time that the ressource need for the operation
+	 * 			i 		for the time that the ressource need for the operation
 	 */
 	public void setOperationTimes(int[] operationTimes) {
 		this.operationTimes = operationTimes;
