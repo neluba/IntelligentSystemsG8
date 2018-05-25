@@ -1,4 +1,13 @@
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.stream.JsonReader;
 
 import planning.Plan;
 import planning.Product;
@@ -14,9 +23,33 @@ import targetFunctions.TargetEndTime;
 public class Main {
 
 	
-	public static void main (String[] args) {
+	public static void main (String[] args) throws IOException {
+		
+		Plan plan = new Plan();
 		
 		
+		Gson gson = new Gson(); 
+		String filename = "test_data_small.json";
+		JsonReader reader = new JsonReader(new FileReader(filename));
+		JsonObject json = gson.fromJson(reader, JsonObject.class); 
+		
+		JsonArray products = json.getAsJsonArray("products"); 
+		System.out.println(products.size());
+			
+			for (int i = 0; i < products.size(); i++) {
+				JsonObject variants = (JsonObject) products.get(i);
+				for (int j = 0; i < variants.size(); j++) {
+					// keine ahnung
+				}
+				
+				System.out.println(variants.size());
+			}
+
+
+		
+		
+		
+		/**
 		Plan plan = new Plan();
 		Ressource m1 = new Ressource("m1");
 		plan.addRessource(m1);
@@ -89,7 +122,7 @@ public class Main {
 		product3.addVariant(product3Variant3);
 		product3Variant3.setRessources(new Ressource[]{m2, m1, m4});
 		product3Variant3.setOperationTimes(new int[]{3,6,5});
-		
+	
 		
 		ArrayList<Product> productList = plan.getProducts();
 		
@@ -153,6 +186,7 @@ public class Main {
 		boolean target = fixedEndTime.checkPlan(plan, targetEndTime);
 		System.out.println("All products are finished before time 30: " + target);
 		
+		**/
 	}
 	
 

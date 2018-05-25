@@ -1,0 +1,251 @@
+{
+    "products": [
+        {
+            "variants": [
+                {
+                    "operations": [
+                        {
+                            "duration": 3, 
+                            "resource": "r1",
+                            "index": 1
+                        }, 
+                        {
+                            "duration": 1, 
+                            "resource": "r2",
+                            "index": 2
+                        }, 
+                        {
+                            "duration": 2, 
+                            "resource": "r1",
+                            "index": 3
+                        }
+                    ]
+                }, 
+                {
+                    "operations": [
+                        {
+                            "duration": 2, 
+                            "resource": "r3",
+                            "index": 1
+                        }, 
+                        {
+                            "duration": 3, 
+                            "resource": "r4",
+                            "index": 2
+                        }, 
+                        {
+                            "duration": 1, 
+                            "resource": "r5",
+                            "index": 3
+                        }
+                    ]
+                }
+            ], 
+            "name": "product1"
+        }, 
+        {
+            "variants": [
+                {
+                    "operations": [
+                        {
+                            "duration": 3, 
+                            "resource": "r3",
+                            "index": 1
+                        }, 
+                        {
+                            "duration": 3, 
+                            "resource": "r2",
+                            "index": 2
+                        }, 
+                        {
+                            "duration": 5, 
+                            "resource": "r1",
+                            "index": 3
+                        }
+                    ]
+                }, 
+                {
+                    "operations": [
+                        {
+                            "duration": 2, 
+                            "resource": "r3",
+                            "index": 1
+                        }, 
+                        {
+                            "duration": 3, 
+                            "resource": "r5",
+                            "index": 2
+                        }, 
+                        {
+                            "duration": 7, 
+                            "resource": "r1",
+                            "index": 3
+                        }
+                    ]
+                }
+            ], 
+            "name": "product2"
+        }, 
+        {
+            "variants": [
+                {
+                    "operations": [
+                        {
+                            "duration": 1, 
+                            "resource": "r2",
+                            "index": 1
+                        }, 
+                        {
+                            "duration": 3, 
+                            "resource": "r4",
+                            "index": 2
+                        }, 
+                        {
+                            "duration": 2, 
+                            "resource": "r2",
+                            "index": 3
+                        }
+                    ]
+                }, 
+                {
+                    "operations": [
+                        {
+                            "duration": 2, 
+                            "resource": "r5",
+                            "index": 1
+                        }, 
+                        {
+                            "duration": 3, 
+                            "resource": "r3",
+                            "index": 2
+                        }
+                    ]
+                }
+            ], 
+            "name": "product3"
+        }, 
+        {
+            "variants": [
+                {
+                    "operations": [
+                        {
+                            "duration": 2, 
+                            "resource": "r1",
+                            "index": 1
+                        }, 
+                        {
+                            "duration": 3, 
+                            "resource": "r2",
+                            "index": 2
+                        }, 
+                        {
+                            "duration": 1, 
+                            "resource": "r3",
+                            "index": 3
+                        }, 
+                        {
+                            "duration": 5, 
+                            "resource": "r4",
+                            "index": 4
+                        }, 
+                        {
+                            "duration": 2, 
+                            "resource": "r5",
+                            "index": 5
+                        }
+                    ]
+                }
+            ], 
+            "name": "product4"
+        }
+    ], 
+    "orders": [
+        {
+            "product": "product3", 
+            "end": 5, 
+            "priority": 3, 
+            "start": 0, 
+            "id": 1, 
+            "quantity": 1
+        }, 
+        {
+            "product": "product1", 
+            "end": 22, 
+            "priority": 2, 
+            "start": 0, 
+            "id": 2, 
+            "quantity": 3
+        }, 
+        {
+            "product": "product2", 
+            "end": 30, 
+            "priority": 2, 
+            "start": 3, 
+            "id": 3, 
+            "quantity": 2
+        }, 
+        {
+            "product": "product1", 
+            "end": 60, 
+            "priority": 1, 
+            "start": 15, 
+            "id": 4, 
+            "quantity": 3
+        }, 
+        {
+            "product": "product3", 
+            "end": 60, 
+            "priority": 1, 
+            "start": 17, 
+            "id": 5, 
+            "quantity": 2
+        }, 
+        {
+            "product": "product4", 
+            "end": 70, 
+            "priority": 3, 
+            "start": 0, 
+            "id": 6, 
+            "quantity": 1
+        }, 
+        {
+            "product": "product2", 
+            "end": 50, 
+            "priority": 3, 
+            "start": 35, 
+            "id": 7, 
+            "quantity": 1
+        }, 
+        {
+            "product": "product1", 
+            "end": 1000, 
+            "priority": 1, 
+            "start": 0, 
+            "id": 8, 
+            "quantity": 4
+        }, 
+        {
+            "product": "product1", 
+            "end": 65, 
+            "priority": 3, 
+            "start": 20, 
+            "id": 9, 
+            "quantity": 2
+        }, 
+        {
+            "product": "product3", 
+            "end": 80, 
+            "priority": 1, 
+            "start": 0, 
+            "id": 10, 
+            "quantity": 5
+        }
+    ], 
+    "resources": [
+        "r1", 
+        "r2", 
+        "r3", 
+        "r4", 
+        "r5"
+    ]
+}
