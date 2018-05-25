@@ -63,7 +63,7 @@ public class Plan {
 		int ressourcesIndex = 0;
 		for(Ressource ressource : ressources) {
 			int operationTime = operationTimes[ressourcesIndex];
-			ressource.addIntervall(operationTime, product);
+			ressource.addIntervall(operationTime, product, variant);
 			ressourcesIndex++;
 		}
 	}

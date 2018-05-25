@@ -7,10 +7,19 @@ public class Variant {
 
 	Ressource[] ressources;
 	int[] operationTimes;
+	private int earliestStartTime;
 		
 	
 	public Variant() {
+		earliestStartTime = 0;
+	}
 		
+	public int getEarliestStartTime() {
+		return earliestStartTime;
+	}
+
+	public void setEarliestStartTime(int earliestStartTime) {
+		this.earliestStartTime = earliestStartTime;
 	}
 	
 	/**

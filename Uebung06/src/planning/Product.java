@@ -9,21 +9,12 @@ public class Product {
 
 	private String name;
 	private ArrayList<Variant> variants;
-	private int earliestStartTime;
 	
 	
 	public Product() {
-		earliestStartTime = 0;
+		
 	}
 	
-	public int getEarliestStartTime() {
-		return earliestStartTime;
-	}
-
-	public void setEarliestStartTime(int earliestStartTime) {
-		this.earliestStartTime = earliestStartTime;
-	}
-
 	public Product(String name) {
 		this.name = name;
 		variants = new ArrayList<Variant>();

@@ -29,9 +29,11 @@ public class Ressource {
 	 * 
 	 * @param time		the time for the time-intervall of an operation  
 	 * @param product 	the product for the time-intervall
+	 * @param variant	the index of product variant	
 	 */
-	public void addIntervall(int time, Product product) {
-		int earliestProductStartTime = product.getEarliestStartTime();
+	public void addIntervall(int time, Product product, int variant) {
+		Variant productVariant = product.getVariant(variant);
+		int earliestProductStartTime = productVariant.getEarliestStartTime();
 		int[] intervall = new int[2];
 		if (intervalls.isEmpty()) {
 			intervall[0] = earliestProductStartTime;
@@ -44,7 +46,7 @@ public class Ressource {
 			intervall[0] = lastIntervallTime;
 			intervall[1] = lastIntervallTime + time;
 		}
-		product.setEarliestStartTime(intervall[1]);
+		productVariant.setEarliestStartTime(intervall[1]);
 		intervalls.add(intervall);
 		products.add(product);
 	}
