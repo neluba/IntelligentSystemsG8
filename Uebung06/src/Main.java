@@ -9,6 +9,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
+import planning.Operation;
+import planning.Order;
 import planning.Plan;
 import planning.Product;
 import planning.Ressource;
@@ -25,7 +27,7 @@ public class Main {
 	
 	public static void main (String[] args) throws IOException {
 		
-		Plan plan = new Plan();
+		// Plan plan = new Plan();
 		
 		
 		Gson gson = new Gson(); 
@@ -34,18 +36,63 @@ public class Main {
 		JsonObject json = gson.fromJson(reader, JsonObject.class); 
 		
 		JsonArray products = json.getAsJsonArray("products"); 
+		// the productList holds all products from the json array
+		ArrayList<Product> productList = new ArrayList<Product>();
 		System.out.println(products.size());
 			
-			for (int i = 0; i < products.size(); i++) {
-				JsonObject variants = (JsonObject) products.get(i);
-				for (int j = 0; i < variants.size(); j++) {
-					// keine ahnung
+		for (int i = 0; i < products.size(); i++) {
+			Product product = new Product();
+			// get all variants 
+			JsonArray variants = products.get(i).getAsJsonObject().getAsJsonArray("variants");
+			for (int j = 0; j < variants.size(); j++) {
+				Variant variant = new Variant();
+				// get all operations 
+				JsonArray operations = variants.get(j).getAsJsonObject().getAsJsonArray("operations");
+				for(int k = 0; k < operations.size(); k++) {
+					Operation operation = new Operation();
+					JsonObject operationJsonObject = operations.get(k).getAsJsonObject();
+					operation.setDuration(operationJsonObject.get("duration").getAsInt());
+					operation.setIndex(operationJsonObject.get("index").getAsInt());
+					operation.setResource(operationJsonObject.get("resource").getAsString());
+					
+					variant.addOperation(operation);
 				}
+				product.addVariant(variant);
 				
-				System.out.println(variants.size());
 			}
+			// set product name and add it to the list 
+			product.setName(products.get(i).getAsJsonObject().get("name").getAsString());
+			productList.add(product);
+		}
 
+		
+		JsonArray orders = json.getAsJsonArray("orders"); 
+		// the ordersList holds all orders from the json array
+		ArrayList<Order> ordersList = new ArrayList<Order>();
+		System.out.println(orders.size());
+			
+		for (int i = 0; i < orders.size(); i++) {
+			// create a new order and set all attributes
+			Order order = new Order();
+			JsonObject orderJsonObject = orders.get(i).getAsJsonObject();
+			order.setProduct(orderJsonObject.get("product").getAsString());
+			order.setEnd(orderJsonObject.get("end").getAsInt());
+			order.setPriority(orderJsonObject.get("priority").getAsInt());
+			order.setStart(orderJsonObject.get("start").getAsInt());
+			order.setQuantity(orderJsonObject.get("id").getAsInt());
+			
+			ordersList.add(order);
+		}
 
+		
+		JsonArray resources = json.getAsJsonArray("resources"); 
+		// the resourceList holds all resources from the json array
+		ArrayList<String> resourceList = new ArrayList<String>();
+		System.out.println(resources.size());
+			
+		for (int i = 0; i < resources.size(); i++) {
+			resourceList.add(resources.get(i).getAsString());
+		}
 		
 		
 		

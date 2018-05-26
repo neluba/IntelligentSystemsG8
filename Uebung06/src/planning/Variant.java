@@ -1,53 +1,34 @@
 package planning;
-/**
- * @author IS Group 08
- *
- */
-public class Variant {
 
-	Ressource[] ressources;
-	int[] operationTimes;
-	private int earliestStartTime;
-		
+import java.util.ArrayList;
+
+
+public class Variant {
+	
+	public ArrayList<Operation> operations;
 	
 	public Variant() {
-		earliestStartTime = 0;
-	}
-		
-	public int getEarliestStartTime() {
-		return earliestStartTime;
+		operations = new ArrayList<Operation>();
 	}
 
-	public void setEarliestStartTime(int earliestStartTime) {
-		this.earliestStartTime = earliestStartTime;
-	}
-	
-	/**
-	 * index i stands for the operation
-	 * @param ressources
-	 */
-	public void setRessources(Ressource[] ressources) {
-		this.ressources = ressources;
-	}
-	
-	
-	/**
-	 * 
-	 * @param operation times
-	 * 			index i for the ressources where the operations will be done, index i=0 for the ressource for operations 1,
-	 * 					index i=1 for the ressource for operation 2 and so on 
-	 * 			i 		for the time that the ressource need for the operation
-	 */
-	public void setOperationTimes(int[] operationTimes) {
-		this.operationTimes = operationTimes;
+	public ArrayList<Operation> getOperation() {
+		return operations;
 	}
 
-	public Ressource[] getRessources() {
-		return ressources;
+	public void setOperation(ArrayList<Operation> operations) {
+		this.operations = operations;
 	}
-
-	public int[] getOperationTimes() {
-		return operationTimes;
+	
+	public void addOperation(Operation operation) {
+		operations.add(operation);
+	}
+	
+	public void removeOperation(int index) {
+		operations.remove(index);
+	}
+	
+	public void removeOperation(Operation object) {
+		operations.remove(object);
 	}
 	
 	

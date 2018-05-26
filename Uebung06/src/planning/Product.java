@@ -12,7 +12,7 @@ public class Product {
 	
 	
 	public Product() {
-		
+		variants = new ArrayList<Variant>();
 	}
 	
 	public Product(String name) {
