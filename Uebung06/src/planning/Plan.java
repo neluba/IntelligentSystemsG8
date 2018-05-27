@@ -7,31 +7,31 @@ import java.util.ArrayList;
  */
 public class Plan {
 
-	// the list of products to plan in plan
-	private ArrayList<Product> products;
+	// the list of orders to plan in plan
+	private ArrayList<Order> orders;
 	// the list of ressources which use in plan 
 	private ArrayList<Ressource> ressources;
 	
 	
 	public Plan() {
-		products = new ArrayList<>();
+		orders = new ArrayList<>();
 		ressources = new ArrayList<Ressource>();
 	}
 
-	public ArrayList<Product> getProducts() {
-		return products;
+	public ArrayList<Order> getOrders() {
+		return orders;
 	}
 
-	public void setProducts(ArrayList<Product> products) {
-		this.products = products;
+	public void setOrders(ArrayList<Order> orders) {
+		this.orders = orders;
 	}
 	
-	public void addProduct(Product product) {
-		this.products.add(product);
+	public void addOrder(Order order) {
+		this.orders.add(order);
 	}
 	
-	public Product getProduct(int index) {
-		return this.products.get(index);
+	public Order getOrder(int index) {
+		return orders.get(index);
 	}
 	
 	
@@ -54,16 +54,17 @@ public class Plan {
 	 * @param productIndex 	the index of product in the list products to plan
 	 * @param variant the 	variant of product to plan
 	 */
-	public void planningProduct(int productIndex, int variant) {
-		Product product = products.get(productIndex);
-		Variant productVariant = product.getVariant(variant);
-		Ressource[] ressources = productVariant.getRessources();
-		int[] operationTimes = productVariant.getOperationTimes();
+	public void planningProduct(int orderIndex, int productVariant) {
+		Order order = orders.get(orderIndex);
+		Product product = order.getProduct();
+		Variant variant = product.getVariant(productVariant);
+		ArrayList<Ressource> ressources = variant.getRessources();
+		ArrayList<Integer> operationTimes = variant.getOperationTimes();
 		
 		int ressourcesIndex = 0;
 		for(Ressource ressource : ressources) {
-			int operationTime = operationTimes[ressourcesIndex];
-			ressource.addIntervall(operationTime, product, variant);
+			int operationTime = operationTimes.get(ressourcesIndex);
+			ressource.addIntervall(operationTime, product, productVariant);
 			ressourcesIndex++;
 		}
 	}

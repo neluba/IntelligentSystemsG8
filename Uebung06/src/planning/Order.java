@@ -2,13 +2,13 @@ package planning;
 
 public class Order {
 	
-	private String product;
+	private Product product;
 	private int end, priority, start, id, quantity;
 	
-	public String getProduct() {
+	public Product getProduct() {
 		return product;
 	}
-	public void setProduct(String product) {
+	public void setProduct(Product product) {
 		this.product = product;
 	}
 	public int getEnd() {

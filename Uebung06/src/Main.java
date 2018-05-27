@@ -9,7 +9,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
-import planning.Operation;
 import planning.Order;
 import planning.Plan;
 import planning.Product;
@@ -35,6 +34,17 @@ public class Main {
 		JsonReader reader = new JsonReader(new FileReader(filename));
 		JsonObject json = gson.fromJson(reader, JsonObject.class); 
 		
+		
+		JsonArray ressources = json.getAsJsonArray("resources"); 
+		// the resourceList holds all resources from the json array
+		ArrayList<Ressource> ressourceList = new ArrayList<Ressource>();
+		System.out.println(ressources.size());
+			
+		for (int i = 0; i < ressources.size(); i++) {
+			ressourceList.add(new Ressource(ressources.get(i).getAsString()));
+		}
+				
+		
 		JsonArray products = json.getAsJsonArray("products"); 
 		// the productList holds all products from the json array
 		ArrayList<Product> productList = new ArrayList<Product>();
@@ -42,57 +52,58 @@ public class Main {
 			
 		for (int i = 0; i < products.size(); i++) {
 			Product product = new Product();
-			// get all variants 
+			// get all variants from json 
 			JsonArray variants = products.get(i).getAsJsonObject().getAsJsonArray("variants");
 			for (int j = 0; j < variants.size(); j++) {
 				Variant variant = new Variant();
-				// get all operations 
+				// get all operations from json and add it to variant to plan it
 				JsonArray operations = variants.get(j).getAsJsonObject().getAsJsonArray("operations");
 				for(int k = 0; k < operations.size(); k++) {
-					Operation operation = new Operation();
 					JsonObject operationJsonObject = operations.get(k).getAsJsonObject();
-					operation.setDuration(operationJsonObject.get("duration").getAsInt());
-					operation.setIndex(operationJsonObject.get("index").getAsInt());
-					operation.setResource(operationJsonObject.get("resource").getAsString());
-					
-					variant.addOperation(operation);
+					//int operationIndex = operationJsonObject.get("index").getAsInt();
+					Integer operationTime = operationJsonObject.get("duration").getAsInt();
+					variant.addOperationTime(operationTime);
+					String ressourceName = operationJsonObject.get("resource").getAsString();
+					for (Ressource ressource : ressourceList) {
+						if (ressourceName.equals(ressource.getName())) 
+							variant.addRessource(ressource);
+					}
 				}
 				product.addVariant(variant);
-				
 			}
-			// set product name and add it to the list 
-			product.setName(products.get(i).getAsJsonObject().get("name").getAsString());
-			productList.add(product);
+		// set product name and add it to the list 
+		product.setName(products.get(i).getAsJsonObject().get("name").getAsString());
+		productList.add(product);
 		}
 
 		
 		JsonArray orders = json.getAsJsonArray("orders"); 
 		// the ordersList holds all orders from the json array
-		ArrayList<Order> ordersList = new ArrayList<Order>();
+		ArrayList<Order> orderList = new ArrayList<Order>();
 		System.out.println(orders.size());
 			
 		for (int i = 0; i < orders.size(); i++) {
 			// create a new order and set all attributes
 			Order order = new Order();
 			JsonObject orderJsonObject = orders.get(i).getAsJsonObject();
-			order.setProduct(orderJsonObject.get("product").getAsString());
+			String productName = orderJsonObject.get("product").getAsString();
+			for (Product product : productList) {
+				if (productName.equals(product.getName()))
+					order.setProduct(product);
+			}
 			order.setEnd(orderJsonObject.get("end").getAsInt());
 			order.setPriority(orderJsonObject.get("priority").getAsInt());
 			order.setStart(orderJsonObject.get("start").getAsInt());
 			order.setQuantity(orderJsonObject.get("id").getAsInt());
 			
-			ordersList.add(order);
+			orderList.add(order);
 		}
+		
+		Plan plan = new Plan();
+		plan.setRessources(ressourceList);
+		plan.setOrders(orderList);
 
 		
-		JsonArray resources = json.getAsJsonArray("resources"); 
-		// the resourceList holds all resources from the json array
-		ArrayList<String> resourceList = new ArrayList<String>();
-		System.out.println(resources.size());
-			
-		for (int i = 0; i < resources.size(); i++) {
-			resourceList.add(resources.get(i).getAsString());
-		}
 		
 		
 		
