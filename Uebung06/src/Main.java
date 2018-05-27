@@ -26,7 +26,6 @@ public class Main {
 	
 	public static void main (String[] args) throws IOException {
 		
-		// Plan plan = new Plan();
 		
 		
 		Gson gson = new Gson(); 
@@ -38,7 +37,7 @@ public class Main {
 		JsonArray ressources = json.getAsJsonArray("resources"); 
 		// the resourceList holds all resources from the json array
 		ArrayList<Ressource> ressourceList = new ArrayList<Ressource>();
-		System.out.println(ressources.size());
+		
 			
 		for (int i = 0; i < ressources.size(); i++) {
 			ressourceList.add(new Ressource(ressources.get(i).getAsString()));
@@ -48,7 +47,7 @@ public class Main {
 		JsonArray products = json.getAsJsonArray("products"); 
 		// the productList holds all products from the json array
 		ArrayList<Product> productList = new ArrayList<Product>();
-		System.out.println(products.size());
+		
 			
 		for (int i = 0; i < products.size(); i++) {
 			Product product = new Product();
@@ -80,7 +79,7 @@ public class Main {
 		JsonArray orders = json.getAsJsonArray("orders"); 
 		// the ordersList holds all orders from the json array
 		ArrayList<Order> orderList = new ArrayList<Order>();
-		System.out.println(orders.size());
+		
 			
 		for (int i = 0; i < orders.size(); i++) {
 			// create a new order and set all attributes
@@ -104,6 +103,9 @@ public class Main {
 		plan.setOrders(orderList);
 
 		
+		for (int i = 0; i < plan.getOrders().size(); i++) {
+			plan.planningProduct(i, 0);
+		}
 		
 		
 		
@@ -215,30 +217,38 @@ public class Main {
 		
 		System.out.println("\nPlanning: Produkt 1, Variante 1 & 2; Produkt 2, Variante 1; Produkt 3, Variante 1\n");
 		
-		System.out.println("m1");
-		for (int i = 0; i < m1.getProducts().size(); i++) {
-			System.out.print(m1.getProduct(i).getName() + ": " + m1.getIntervall(i)[0] + "-" + m1.getIntervall(i)[1] + " | "); 
+		**/
+		System.out.println("r1");
+		for (int i = 0; i < ressourceList.get(0).getProducts().size(); i++) {
+			System.out.print(ressourceList.get(0).getProduct(i).getName() + ": " +ressourceList.get(0).getIntervall(i)[0] + "-" +ressourceList.get(0).getIntervall(i)[1] + " | "); 
 		}
 		System.out.println("\n----------------------------------------");
 		
-		System.out.println("m2");
-		for (int i = 0; i < m2.getProducts().size(); i++) {
-			System.out.print(m2.getProduct(i).getName() + ": " + m2.getIntervall(i)[0] + "-" + m2.getIntervall(i)[1] + " | "); 
+		System.out.println("r2");
+		for (int i = 0; i < ressourceList.get(1).getProducts().size(); i++) {
+			System.out.print(ressourceList.get(1).getProduct(i).getName() + ": " + ressourceList.get(1).getIntervall(i)[0] + "-" + ressourceList.get(1).getIntervall(i)[1] + " | "); 
 		}
 		System.out.println("\n ---------------------------------------");
 		
-		System.out.println("m3");
-		for (int i = 0; i < m3.getProducts().size(); i++) {
-			System.out.print(m3.getProduct(i).getName() + ": " + m3.getIntervall(i)[0] + "-" + m3.getIntervall(i)[1] + " | "); 
+		System.out.println("r3");
+		for (int i = 0; i < ressourceList.get(2).getProducts().size(); i++) {
+			System.out.print(ressourceList.get(2).getProduct(i).getName() + ": " + ressourceList.get(2).getIntervall(i)[0] + "-" + ressourceList.get(2).getIntervall(i)[1] + " | "); 
 		}
 		System.out.println("\n----------------------------------------");
 		
-		System.out.println("m4");
-		for (int i = 0; i < m4.getProducts().size(); i++) {
-			System.out.print(m4.getProduct(i).getName() + ": " + m4.getIntervall(i)[0] + "-" + m4.getIntervall(i)[1] + " | "); 
+		System.out.println("r4");
+		for (int i = 0; i < ressourceList.get(3).getProducts().size(); i++) {
+			System.out.print(ressourceList.get(3).getProduct(i).getName() + ": " + ressourceList.get(3).getIntervall(i)[0] + "-" + ressourceList.get(3).getIntervall(i)[1] + " | "); 
 		}
 		System.out.println("\n----------------------------------------");
-			
+		
+		System.out.println("r5");
+		for (int i = 0; i < ressourceList.get(4).getProducts().size(); i++) {
+			System.out.print(ressourceList.get(4).getProduct(i).getName() + ": " + ressourceList.get(4).getIntervall(i)[0] + "-" + ressourceList.get(4).getIntervall(i)[1] + " | "); 
+		}
+		System.out.println("\n----------------------------------------");
+		
+		/**
 		FixedEndTime fixedEndTime = new FixedEndTime();
 		TargetEndTime targetEndTime = new TargetEndTime(30);
 		boolean target = fixedEndTime.checkPlan(plan, targetEndTime);

@@ -53,7 +53,7 @@ public class Variant {
 		ressources.add(ressource);
 	}
 	
-	public Ressource getRessources(int index) {
+	public Ressource getRessource(int index) {
 		return ressources.get(index);
 	}
 
