@@ -35,5 +35,11 @@ public class FixedEndTime implements ITargetFunction {
 		}
 	}
 
+	@Override
+	public int getValuation(Plan plan) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 }

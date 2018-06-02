@@ -16,7 +16,9 @@ import planning.Plan;
 import planning.Product;
 import planning.Ressource;
 import planning.Variant;
+import targetFunctions.DelayWithPrio;
 import targetFunctions.FixedEndTime;
+import targetFunctions.ITargetFunction;
 import targetFunctions.TargetEndTime;
 
 /**
@@ -136,7 +138,11 @@ public class Main {
 	    
 		// plan all orders
 		for (int i = 0; i < plan.getOrders().size(); i++) {
-			plan.planningProductWithTimewindow(i, 0);
+			int quantity = plan.getOrders().get(i).getQuantity();
+			while(quantity > 0) {
+				plan.planningProductWithTimewindow(i, 0);
+				quantity--;
+			}
 		}
 		
 		
@@ -153,9 +159,19 @@ public class Main {
 			}
 			System.out.println();
 		}
-			
+		
+		System.out.println();
+		for (Order order : plan.getOrders()) {
+			Product product = order.getProduct();
+			System.out.println("Order" + product.getOrderIndex() + " End: " + product.getEarliestStartTime());
+		}
 		
 	
+		System.out.println();
+		ITargetFunction targetFunction = new DelayWithPrio();
+		int valuation = targetFunction.getValuation(plan);
+		System.out.println("Valuation: " + valuation);
+		
 	}
 	
 

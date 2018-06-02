@@ -17,5 +17,11 @@ public interface ITargetFunction {
 	 */
 	public boolean checkPlan(Plan plan, ITarget target);
 
-
+	/**
+	 *  
+	 * @param 	plan
+	 * @return	a valuation of the plan 
+	 */
+	public int getValuation(Plan plan);
+	
 }
