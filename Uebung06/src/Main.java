@@ -2,12 +2,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
+
 
 import planning.Order;
 import planning.Plan;
@@ -108,11 +110,35 @@ public class Main {
 		Plan plan = new Plan();
 		plan.setRessources(ressourceList);
 		plan.setOrders(orderList);
-
 		
+		// sort by priority
+		Comparator<Order> priorityComperator;
+		priorityComperator = (final Order o1, final Order o2) -> {
+			return Integer.compare(o1.getPriority(), o2.getPriority());
+	    };
+	    plan.getOrders().sort(priorityComperator);
+	    
+	    // sort by start time
+	    Comparator<Order> startTimeComperator;
+		startTimeComperator = (final Order o1, final Order o2) -> {
+			return Integer.compare(o1.getStart(), o2.getStart());
+	    };
+	    plan.getOrders().sort(startTimeComperator);
+	    
+	    // sort by timewindow
+	    Comparator<Order> timewindowComperator;
+	    timewindowComperator = (final Order o1, final Order o2) -> {
+			int timewindowO1 = o1.getEnd() - o1.getStart();
+			int timewindowO2 = o2.getEnd() - o2.getStart();
+			return Integer.compare(timewindowO1, timewindowO2);
+	    };
+	    plan.getOrders().sort(timewindowComperator);
+	    
+		// plan all orders
 		for (int i = 0; i < plan.getOrders().size(); i++) {
 			plan.planningProductWithTimewindow(i, 0);
 		}
+		
 		
 		for (Ressource ressource : plan.getRessources()) {
 			System.out.println(ressource.getName());
