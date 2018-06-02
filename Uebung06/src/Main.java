@@ -89,6 +89,7 @@ public class Main {
 			for (Product product : productList) {
 				if (productName.equals(product.getName()))
 					try {
+						Product orderProduct = new Product(product, "" + (i + 1));
 						order.setProduct(orderProduct);
 					} catch (CloneNotSupportedException e) {
 						// TODO Auto-generated catch block
@@ -121,6 +122,7 @@ public class Main {
 				int[] intervall = ressource.getIntervalls().get(intervallIndex);
 				int start = intervall[0];
 				int end = intervall[1];
+				System.out.print("Order" + product.getOrderIndex() + "-" + product.getName() + ": " + start + "-" + end + " | ");
 				intervallIndex++;
 			}
 			System.out.println();
