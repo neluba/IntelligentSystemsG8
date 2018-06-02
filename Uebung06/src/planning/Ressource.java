@@ -22,7 +22,7 @@ public class Ressource {
 		intervalls = new ArrayList<int[]>();
 		products = new ArrayList<Product>();
 	}
-	
+		
 	/**
 	 * Add an time-intervall to the list of time-intervalls and
 	 * a product to the list of products for the time-intervall. 
@@ -31,9 +31,8 @@ public class Ressource {
 	 * @param product 	the product for the time-intervall
 	 * @param variant	the index of product variant	
 	 */
-	public void addIntervall(int time, Product product, int variant) {
-		Variant productVariant = product.getVariant(variant);
-		int earliestProductStartTime = productVariant.getEarliestStartTime();
+	public void addIntervall(int time, Product product) {
+		int earliestProductStartTime = product.getEarliestStartTime();
 		int[] intervall = new int[2];
 		if (intervalls.isEmpty()) {
 			intervall[0] = earliestProductStartTime;
@@ -46,7 +45,7 @@ public class Ressource {
 			intervall[0] = lastIntervallTime;
 			intervall[1] = lastIntervallTime + time;
 		}
-		productVariant.setEarliestStartTime(intervall[1]);
+		product.setEarliestStartTime(intervall[1]);
 		intervalls.add(intervall);
 		products.add(product);
 	}
@@ -91,47 +90,58 @@ public class Ressource {
 		products.add(index, product);
 	}
 	
-	/*
-	public boolean addIntervallWithTimewindow(String product, int start, int end) {
-		int operationTime = end - start;
+	
+	public void addIntervallWithTimewindow(int operationTime, int startTime, Product product) {
+		// hard constraint operation order
+		int earliestProductStartTime = product.getEarliestStartTime();
+		// hard constraint earliest start
+		if (earliestProductStartTime < startTime)
+			earliestProductStartTime = startTime;
 		int[] intervall = new int[2];
-				
+		
+		// ressource is empty
+		if (intervalls.isEmpty()) {
+			intervall[0] = earliestProductStartTime;
+			intervall[1] = earliestProductStartTime + operationTime;
+			product.setEarliestStartTime(intervall[1]);
+			intervalls.add(intervall);
+			products.add(product);
+			return;
+		}
+		
+		// search for a timewindow on ressource
 		int intervallIndex = 0;
 		for (int[] currentIntervall : intervalls) {
 			int currentIntervallEnd = currentIntervall[1];
-			if (currentIntervallEnd >= start) {
-				
-				if (intervalls.size() > intervallIndex + 1) {
-					int[] nextIntervall = intervalls.get(intervallIndex + 1); 
-					int nextIntervallStart = nextIntervall[0];
-					int windowTime = nextIntervallStart - currentIntervallEnd;
-					operationTime = end - start;
-					if (windowTime >= operationTime) {
-						intervall[0] = currentIntervallEnd;
-						intervall[1] = currentIntervallEnd + operationTime;
-						intervalls.add(intervall);
-						products.add(intervallIndex, product);
-						break;
-					}
-				} else {
+			if (currentIntervallEnd >= earliestProductStartTime && intervalls.size() > intervallIndex + 1) {
+				// check timewindow size
+				int[] nextIntervall = intervalls.get(intervallIndex + 1); 
+				int nextIntervallStart = nextIntervall[0];
+				int windowTime = nextIntervallStart - currentIntervallEnd;
+				if (windowTime >= operationTime) {
 					intervall[0] = currentIntervallEnd;
 					intervall[1] = currentIntervallEnd + operationTime;
-					intervalls.add(intervall);
-					products.add(product);
+					product.setEarliestStartTime(intervall[1]);
+					intervalls.add(intervallIndex + 1, intervall);
+					products.add(intervallIndex + 1, product);
+					return;
 				}
 			}
 			intervallIndex++;
 		}
 		
-		if (intervall[1] <= end) {
-			return true;
-		} else {
-			return false;
-		}
+		// add operation at end
+		int[] lastIntervall = intervalls.get(intervalls.size() - 1);
+		int lastTime = lastIntervall[1];
+		if (lastTime < earliestProductStartTime)
+			lastTime = earliestProductStartTime;
+		intervall[0] = lastTime;
+		intervall[1] = lastTime + operationTime;
+		product.setEarliestStartTime(intervall[1]);
+		intervalls.add(intervall);
+		products.add(product);
 	}
-	*/
 	
-	
-	
-	
+
 }
+	

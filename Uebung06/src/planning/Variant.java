@@ -6,33 +6,22 @@ import java.util.ArrayList;
  * @author IS Group 08
  *
  */
-public class Variant {
+public class Variant implements Cloneable {
 
 	ArrayList<Ressource> ressources;
 	ArrayList<Integer> operationTimes;
-	private int earliestStartTime;
-		
+	
 	
 	public Variant() {
 		ressources = new ArrayList<Ressource>();
 		operationTimes = new ArrayList<Integer>();
-		earliestStartTime = 0;
 	}
 	
-	/**
-	 * index i stands for the operation
-	 * @param ressources
-	 */
+	@Override
+	public Variant clone() throws CloneNotSupportedException {
+		 return (Variant) super.clone();
+	}
 	
-		
-	public int getEarliestStartTime() {
-		return earliestStartTime;
-	}
-
-	public void setEarliestStartTime(int earliestStartTime) {
-		this.earliestStartTime = earliestStartTime;
-	}
-		
 	/**
 	 * 
 	 * @param operation times

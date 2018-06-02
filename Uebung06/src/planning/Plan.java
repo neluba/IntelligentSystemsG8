@@ -64,7 +64,31 @@ public class Plan {
 		int ressourcesIndex = 0;
 		for(Ressource ressource : ressources) {
 			int operationTime = operationTimes.get(ressourcesIndex);
-			ressource.addIntervall(operationTime, product, productVariant);
+			ressource.addIntervall(operationTime, product);
+			ressourcesIndex++;
+		}
+	}
+	
+	/**
+	 * Planning a product on the setted ressource. The ressource was setting in the variant of product.
+	 * All products in the list products can be plan.
+	 * 
+	 * @param productIndex 	the index of product in the list products to plan
+	 * @param variant the 	variant of product to plan
+	 */
+	public void planningProductWithTimewindow(int orderIndex, int productVariantIndex) {
+		Order order = orders.get(orderIndex);
+		Product product = order.getProduct();
+		Variant variant = product.getVariant(productVariantIndex);
+		product.setVariantIndex(productVariantIndex);
+		ArrayList<Ressource> ressources = variant.getRessources();
+		ArrayList<Integer> operationTimes = variant.getOperationTimes();
+		
+		int ressourcesIndex = 0;
+		for(Ressource ressource : ressources) {
+			int operationTime = operationTimes.get(ressourcesIndex);
+			int startTime = order.getStart();
+			ressource.addIntervallWithTimewindow(operationTime, startTime, product);
 			ressourcesIndex++;
 		}
 	}
