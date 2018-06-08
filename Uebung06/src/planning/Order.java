@@ -1,6 +1,6 @@
 package planning;
 
-public class Order {
+public class Order implements Cloneable {
 	
 	private Product product;
 	private int end, priority, start, id, quantity;
@@ -8,6 +8,12 @@ public class Order {
 	public Product getProduct() {
 		return product;
 	}
+	
+	@Override
+	public Order clone() throws CloneNotSupportedException {
+		 return (Order) super.clone();
+	}
+	
 	public void setProduct(Product product) {
 		this.product = product;
 	}

@@ -142,6 +142,11 @@ public class Ressource {
 		products.add(product);
 	}
 	
+	public void clear() {
+		intervalls.clear();
+		products.clear();
+	}
+	
 
 }
 	

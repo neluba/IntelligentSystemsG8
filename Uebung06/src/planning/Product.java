@@ -10,6 +10,9 @@ public class Product {
 	private String name;
 	private String orderIndex;
 	private ArrayList<Variant> variants;
+	private int variantIndex;
+	private int earliestStartTime;
+	
 	public String getOrderIndex() {
 		return orderIndex;
 	}
@@ -17,11 +20,7 @@ public class Product {
 	public void setOrderIndex(String orderIndex) {
 		this.orderIndex = orderIndex;
 	}
-
-	private int variantIndex;
-	private int earliestStartTime;
-	
-	
+		
 	public int getEarliestStartTime() {
 		return earliestStartTime;
 	}

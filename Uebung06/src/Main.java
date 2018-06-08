@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -103,7 +104,8 @@ public class Main {
 			order.setEnd(orderJsonObject.get("end").getAsInt());
 			order.setPriority(orderJsonObject.get("priority").getAsInt());
 			order.setStart(orderJsonObject.get("start").getAsInt());
-			order.setQuantity(orderJsonObject.get("id").getAsInt());
+			order.setId(orderJsonObject.get("id").getAsInt());
+			order.setQuantity(orderJsonObject.get("quantity").getAsInt());
 			
 			orderList.add(order);
 		}
@@ -172,6 +174,60 @@ public class Main {
 		int valuation = targetFunction.getValuation(plan);
 		System.out.println("Valuation: " + valuation);
 		
+		
+		
+		Random random = new Random();
+	
+		int count = 100;
+		while(count > 0) {
+			ArrayList<Order> localOrders = new ArrayList<Order>();
+			for (Order order : plan.getOrders()) {
+				try {
+					localOrders.add(order.clone());
+				} catch (CloneNotSupportedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		for(Ressource ressource : plan.getRessources()) {
+			ressource.clear();
+		}
+		
+		for(Order order : localOrders) {
+			order.getProduct().setEarliestStartTime(0);
+		}
+		
+	
+		int orderCount = localOrders.size();
+		int i = 0;
+		while (orderCount != 0) {
+			if (i == localOrders.size())
+				i = 0;
+			Order localOrder = localOrders.get(i);
+			
+			int quantity = localOrder.getQuantity();
+			if (quantity > 0) {
+				Product product = localOrder.getProduct();
+				int variantsNumber = product.getVariants().size();
+				int randomVariant = random.nextInt(variantsNumber);
+				//System.out.println(randomVariant);
+				plan.planningProductWithTimewindow(i, randomVariant);
+				quantity--;
+				localOrder.setQuantity(quantity);
+				orderCount = localOrders.size();
+				i++;
+			} else {
+				orderCount--;
+				i++;
+			}
+		}		
+		valuation = targetFunction.getValuation(plan);
+		System.out.println("Valuation: " + valuation);
+				
+		count--;
+		
+		}
 	}
 	
 
