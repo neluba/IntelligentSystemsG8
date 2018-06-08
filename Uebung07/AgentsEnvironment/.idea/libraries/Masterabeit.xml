@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Masterabeit">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/Masterabeit.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

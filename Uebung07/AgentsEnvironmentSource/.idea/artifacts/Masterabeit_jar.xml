@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Masterabeit:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Masterabeit_jar</output-path>
+    <root id="archive" name="Masterabeit.jar">
+      <element id="module-output" name="Masterabeit" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/gson-2.8.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jade.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/commons-codec-1.3.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

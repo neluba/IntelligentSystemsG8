@@ -1,0 +1,36 @@
+Hillclimbing;63;63;63;73;73;73;;
+Mean Fitness: 68.0
+Best Fitness: 63
+Worst Fitness: 73
+Bests: null
+
+Threshold Accepting;61;65;64;60;69;62;;
+Mean Fitness: 63.5
+Best Fitness: 60
+Worst Fitness: 69
+Bests: 1
+
+Great Deluge;68;63;63;60;62;62;;
+Mean Fitness: 63.0
+Best Fitness: 60
+Worst Fitness: 68
+Bests: 1
+
+Tabusearch;71;63;63;77;63;68;;
+Mean Fitness: 67.5
+Best Fitness: 63
+Worst Fitness: 77
+Bests: 1
+
+Simulated Annealing;62;69;66;62;62;;
+Mean Fitness: 64.2
+Best Fitness: 62
+Worst Fitness: 69
+Bests: 3
+
+Blackboard;79;79;79;79;79;79;;
+Mean Fitness: 79.0
+Best Fitness: 79
+Worst Fitness: 79
+Bests: null
+

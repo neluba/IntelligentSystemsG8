@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="commons-codec-1.3">
+    <archive path="D:/Programming/git/Masterabeit/lib/commons-codec-1.3.jar" />
+  </library>
+  <library name="gson-2.8.1">
+    <archive path="D:/Programming/git/Masterabeit/lib/gson-2.8.1.jar" />
+  </library>
+  <library name="jade">
+    <archive path="D:/Programming/git/Masterabeit/lib/jade.jar" />
+  </library>
+</eclipse-userlibraries>
+
